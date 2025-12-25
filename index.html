@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal360 — PRO*ACT</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            proact: {
+              DEFAULT: '#004d40',
+              light: '#00695c',
+              dark: '#003d33',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .left-image {
+      position: relative;
+      width: auto;
+      height: 50vh;
+      max-height: 500px;
+      z-index: 0;
+    }
+    .right-content {
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+      margin-left: 4rem; /* Increased gap */
+      text-align: center;
+    }
+
+.top-logo {
+  position: absolute;
+  top: 0;
+  left: 20rem;
+  z-index: 10;
+  margin-top: 1rem; /* Optional: nudge down slightly if needed */
+}
+
+    .portal360-logo {
+      width: auto;
+      height: 200px; /* Match left image's vertical scale */
+      margin-bottom: 1rem;
+    }
+    .portal360-logo {
+      height: 350px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .heading {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #004d40;
+      margin-bottom: 0.5rem;
+    }
+    .subheading {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .countdown-box {
+      background: #f3f4f6;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      text-align: center;
+      min-width: 60px;
+    }
+    .countdown-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #004d40;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+    }
+    .footer-text {
+      font-size: 0.75rem;
+      color: #004d40;
+      margin-top: 1.5rem; /* Pushed down below countdown */
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      .left-image {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        margin-bottom: 1rem;
+      }
+      .right-content {
+        margin-left: 0;
+        width: 100%;
+      }
+      .portal360-logo {
+        height: 150px;
+      }
+      .countdown-box {
+        min-width: 50px;
+        padding: 0.5rem;
+      }
+      .countdown-number {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Top Left Logo -->
+  <div class="top-logo">
+    <img src="assets/proact-logo.png" alt="PRO*ACT" class="h-14" />
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Left Image -->
+    <img src="assets/proact_venn.webp" alt="PRO*ACT Building Value" class="left-image" />
+
+    <!-- Right Content -->
+    <div class="right-content">
+      <div class="text-center mb-1">
+        <img src="assets/Portal 360.png" alt="PRO*ACT Portal360" class="portal360-logo" />
+      </div>
+    <h1 class="heading">PRO*ACT Reporting Platform</h1>
+      <p class="subheading">Coming Soon!</p>
+      <div class="countdown-container" id="countdown">
+        <div class="countdown-box">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Mins</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Secs</div>
+        </div>
+      </div>
+      <!-- Footer Text - Now positioned under countdown, within right-content -->
+      <div class="footer-text">
+        Contact <a href="mailto:helpdesk@proactusa.com" class="underline">helpdesk@proactusa.com</a> for questions, or help with your login.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set target date: Dec 31, 2025
+    const targetDate = new Date('2025-12-31T23:59:59').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.getElementById('days').textContent = "00";
+        document.getElementById('hours').textContent = "00";
+        document.getElementById('minutes').textContent = "00";
+        document.getElementById('seconds').textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+  </script>
+</body>
+</html>
